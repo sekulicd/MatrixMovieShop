@@ -1,36 +1,40 @@
-About MatrixMovieShop
+# MatrixMovieShop
+
 MatrixMovieShop is a scalable solution which is designed as per CQRS / Event Sourcing architectural pattern.
 The focus is on design and architecture which enables easy scalability and modularity. 
 Out of focus: database implementation (data stored in memory), writing unit tests.
 It comprises of four decoupled modules: 
-1. MovieInventory - in charge for maintaining movie inventory
-2. MovieOrderingEngine -  in charge for renting and returning of movies
-3. PricingEngine - in charge for calculating and paying rent and return price
-4. BonusClub - in charge for maintaining customer bonuses
+- MovieInventory - in charge for maintaining movie inventory
+- MovieOrderingEngine -  in charge for renting and returning of movies
+- PricingEngine - in charge for calculating and paying rent and return price
+- BonusClub - in charge for maintaining customer bonuses
 
-Exposed API's:
-1. MovieInventory:
-	1.1 addMovie - adds movie to Inventory
-	1.2 getMovie - returns list of all movies in Inventory
-2. MovieOrderingEngine:
-	2.1 rentMovie - places rent movie request (supports only renting of one 			 movie)
-	2.2 returnMovie - places return movie request
-	2.3 getOrder - return order details
-3. PricingEngine 
-	3.1 getRentPrice - returns rent price for specific order
-	3.2 payRentPrice - pay rent price for specific order
-	3.3 getReturnPrice - returns return price for specific order
-	3.4 payReturnPrice - pay rent price for specific order
-4. BonusClub:
-	4.1 getCustomerBonus - returns customer bonus
+## Exposed API's:
+
+### MovieInventory:
+	- addMovie - adds movie to Inventory
+	- getMovie - returns list of all movies in Inventory
 	
-Technology stack:
+### MovieOrderingEngine:
+- rentMovie - places rent movie request (supports only renting of one movie)
+- returnMovie - places return movie request
+- getOrder - return order details
+
+### PricingEngine 
+- getRentPrice - returns rent price for specific order
+- payRentPrice - pay rent price for specific order
+- getReturnPrice - returns return price for specific order
+-  payReturnPrice - pay rent price for specific order
+- BonusClub:
+- getCustomerBonus - returns customer bonus
+	
+## Technology stack:
 	1. Java SE 8/Java EE7
 	2. Apache Kafka
 	3. Docker
 	4. Maven
 	
-Build & run:
+## Build & run:
 1. Build modules:
 	1.1 mvn clean install (from MatrixMovieShop location)
 2. Build & run kafka/zookeeper image 
@@ -49,7 +53,8 @@ Optional: if necessery any for any module additional instance can be started, fo
 	3.9 cd MovieOrderingEngine (from MatrixMovieShop location)
 	4.0 ./build-run-local-additional-node.sh
 	
-Debugging:
+## Debugging:
+
 Checking Kafka events:
 1. Navigate to bin folder of kafka instalation
 ./kafka-console-consumer.sh --bootstrap-server 192.168.99.100:9092  --topic movie_inventory --from-beginning
@@ -57,7 +62,8 @@ Checking Kafka events:
 ./kafka-console-consumer.sh --bootstrap-server 192.168.99.100:9092  --topic pricing_engine --from-beginning
 ./kafka-console-consumer.sh --bootstrap-server 192.168.99.100:9092  --topic bonus_topic --from-beginning
 
-Testing application:
+## Testing application:
+
 - Add movie to inventory
 curl -X POST -d '{"title":"LOTR3","movie_type":"OLD"}' http://192.168.99.100:8002/MovieInventory/casumo/inventory/add --header "Content-Type:application/json"
 - Check if movie is added
